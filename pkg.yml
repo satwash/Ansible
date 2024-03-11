@@ -1,0 +1,34 @@
+---                                       # Start of playbook --- 
+- name: first notebook                    # Playbook Name
+  hosts: web                              # Host group in inventory file
+  become: yes                             # escalate privilege root (for all task)
+  tasks:                                  # Tasks
+
+####################################### Package tasks #######################################
+
+# install pkg
+    - name: install httpd
+      yum:                                # yum / apt
+        name: httpd
+        become: yes                       # escalate privilege (1 task)
+        state: present                    # present / absent / 
+
+# enable/start service
+    - name: start httpd
+      services:                           # service module
+        name: httpd
+        state: started                    # started / stopped / restarted / reloaded / 
+        enabled: yes                      # yes / no
+
+# UPDATE all pkg to latest version
+    - name: Upgrade all packages 
+      apt:                                 # apt module
+        name: "*"
+        state: latest
+
+# UPGRADE all pkg to latest version
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
+
+        

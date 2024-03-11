@@ -1,0 +1,52 @@
+---                                       # Start of playbook --- 
+- name: first notebook                    # Playbook Name
+  hosts: web                              # Host group in inventory file
+  become: yes                             # escalate privilege root (for all task)
+  tasks:                                  # Tasks
+
+####################################### File Tasks #######################################
+
+# Change file ownership, group and permissions
+    - name: Change file ownership
+      file:
+        path: <filepath>
+        owner: <username>
+        group: <group-name>
+        mode: <file-mode>                   # file-mode can be numbers like 0644, or symbols like u=rw,g=r,o=r, or symbol changes u+rw,g-wx,o-rwx.
+
+# Recursively change ownership of a directory
+      - name: Recursively change ownership of a directory
+        file:
+          path: <dir-path>
+          owner: <username>
+          group: <group-name>
+          state: directory
+          recurse: yes
+
+# Create an empty file
+      - name: Create an empty file.
+        file:
+          path: <filepath>                  # /path/to/your/file.txt
+          state: touch                      # file should be created if it doesn't exist, or updated to have the current timestamp if exist
+          mode: <file-mode>                 # 0777 / 0722
+
+# Remove a file
+      - name: Remove a file
+        file:
+          path: <filepath>
+          state: absent
+
+# Create a directory if it does not exist
+      - name: Create a directory if it does not exist
+        file:
+          path: <dir-path>
+          state: directory
+          mode: <file-mode>
+
+# remove directory
+      - name: Recursively remove directory
+        file:
+          path: <dir-path>
+          state: absent
+
+

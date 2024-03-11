@@ -1,0 +1,17 @@
+---                                       # Start of playbook --- 
+- name: first notebook                    # Playbook Name
+  hosts: web                              # Host group in inventory file
+  become: yes                             # escalate privilege root (for all task)
+  tasks:                                  # Tasks  
+    
+    - name: Task1
+      yum:                                # yum / apt
+        name: httpd
+        become: yes                       # escalate privilege (1 task)
+        state: present                    # present / absent / 
+        
+    - name: Task2
+      yum:                                # yum / apt
+        name: python
+        become: yes                       # escalate privilege (1 task)
+        state: present                    # present / absent / 
